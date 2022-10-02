@@ -1,6 +1,9 @@
 package com.bcnc.brandprices.jpa;
 
-import com.bcnc.brandprices.domain.*;
+import com.bcnc.brandprices.domain.Price;
+import com.bcnc.brandprices.domain.PriceListItem;
+import com.bcnc.brandprices.domain.PriceListItemId;
+import com.bcnc.brandprices.domain.ProductId;
 import lombok.Getter;
 import lombok.Setter;
 

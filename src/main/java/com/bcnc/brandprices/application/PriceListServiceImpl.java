@@ -1,6 +1,6 @@
 package com.bcnc.brandprices.application;
 
-import com.bcnc.brandprices.application.data.ProductPriceData;
+import com.bcnc.brandprices.application.data.PriceDataNotFoundException;
 import com.bcnc.brandprices.application.data.PriceListItemDataMapper;
 import com.bcnc.brandprices.application.data.ProductPriceResponse;
 import com.bcnc.brandprices.domain.BrandId;
@@ -25,11 +25,12 @@ class PriceListServiceImpl implements PriceListService {
     private final PriceListJPARepository priceListJPARepository;
     private final PriceListItemDataMapper priceListItemDataMapper;
     public ProductPriceResponse determinePrice(LocalDateTime applicationDate, ProductId productId, BrandId brandId) {
-        log.info("Determining price for {}) and {})", productId, brandId);
+        log.info("Starting to determine price for {} and {} on: {} has been received.", productId, brandId, applicationDate);
         List<PriceListItem> priceListItems = priceListJPARepository.findByProductIdAndBrandId(applicationDate, productId, brandId);
 
         if(priceListItems.isEmpty()) {
-            throw new RuntimeException("Not Found");
+            log.info("A price for {} and {} on: {} has not been found.", productId, brandId, applicationDate);
+            throw new PriceDataNotFoundException();
         }
 
         var priceListItem = Collections.max(priceListItems, Comparator.comparing(PriceListItem::getPriority));

@@ -15,7 +15,7 @@ public class Price  {
     private BigDecimal amount;
     private Currency currency;
 
-    public Price() { } //TODO
+    public Price() { }
 
     public Price(@NonNull BigDecimal amount, @NonNull Currency currency) {
         this.amount = amount;

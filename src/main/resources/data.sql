@@ -20,7 +20,7 @@ create table price_list_item (
 );
 
 alter table price_list_item
-    add constraint FK6_price_list_item_brand
+    add constraint FK_price_list_item_brand
         foreign key (brand_id)
             references brand;
 
@@ -28,6 +28,9 @@ alter table price_list_item
     add constraint FK_price_list_item_price_list
         foreign key (price_list_id)
             references price_list;
+
+CREATE INDEX INDEX_price_list_items_search
+    ON price_list_item (product_id, brand_id, start_date, end_date);
 
 INSERT INTO price_list (id) VALUES (1);
 INSERT INTO price_list (id) VALUES (2);
